@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Féerie Océanique</title>
+  <link rel="stylesheet" href="123456.css">
+</head>
+<body>
+  <header>
+    <h1>🌊 Féerie Océanique : L'Océan comme un Corps Humain 🧍</h1>
+    <p>Plongez dans une expérience amusante et éducative !</p>
+  </header>
+
+  <main>
+    <section class="interactive-section">
+      <div class="organ heart">
+        ❤️ <span>Le Cœur de l'Océan</span>
+      </div>
+      <div class="organ lungs">
+        💨 <span>Les Poumons (Courants d'air)</span>
+      </div>
+      <div class="organ stomach">
+        🍴 <span>Estomac (Écosystème Marin)</span>
+      </div>
+      <div class="organ brain">
+        🧠 <span>Le Cerveau (Équilibre Climatique)</span>
+      </div>
+      <div class="organ muscles">
+        💪 <span>Les Muscles (Courants Marins)</span>
+      </div>
+    </section>
+
+    <section class="jokes-section">
+      <h2>Quelques Blagues Océaniques 🐠</h2>
+      <ul>
+        <li>Pourquoi l’océan est-il si profond ? Parce qu’il cache ses émotions !</li>
+        <li>Quel est le poisson préféré du cerveau ? Le poisson-clé !</li>
+        <li>Pourquoi les courants marins sont-ils si forts ? Parce qu'ils font du fitness marin 💪 !</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>✨ Réalisé par une équipe pleine d'humour pour la Nuit de l'Info 2024 ✨</p>
+    </footer>
+  </main>
+
+  <script src="script.js">
+const organs = document.querySelectorAll('.organ');
+
+organs.forEach((organ) => {
+  organ.addEventListener('click', () => {
+    organ.classList.add('clicked');
+    setTimeout(() => {
+      organ.classList.remove('clicked');
+    }, 500);
+
+    alert(`✨ Surprise ! Vous avez découvert : ${organ.innerText.trim()} !`);
+  });
+});
+
+  </script>
+</body>
+</html>
