@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendrier de l'Avent Mystérieux</title>
+  <link rel="stylesheet" href="123456.css">
+  <style>
+    /* Ajoutez le style ici (voir la section CSS ci-dessous) */
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎄 Calendrier de l'Avent Mystérieux 🎄</h1>
+    <p>Chaque jour, ouvrez une case et découvrez une surprise magique !</p>
+    <p id="grinch-message" style="color: red; font-weight: bold;"></p>
+    <div id="grinchometer">
+      <span>Grinch-o-mètre: </span>
+      <span id="grinch-count">0</span> cases volées
+    </div>
+  </header>
+
+  <main>
+    <div id="calendar">
+      <!-- Les cases seront générées ici via JavaScript -->
+    </div>
+  </main>
+
+  <footer>
+    <p>✨ Magie de Noël ✨ | Réalisé avec ❤️ pour la Nuit de l'Info</p>
+  </footer>
+
+  <script>
+   // Variables globales
+const calendar = document.getElementById("calendar");
+const grinchCount = document.getElementById("grinch-count");
+const grinchMessage = document.getElementById("grinch-message");
+
+let grinchStolen = 0;
+
+// Générer les cases du calendrier
+for (let day = 1; day <= 24; day++) {
+  const caseElement = document.createElement("div");
+  caseElement.className = "case";
+  caseElement.textContent = day;
+
+  const today = new Date().getDate();
+
+  // Permet d'ouvrir uniquement les cases du jour ou des jours passés
+  if (day > today) {
+    caseElement.style.pointerEvents = "none";
+    caseElement.style.opacity = "0.5";
+  } else {
+    caseElement.addEventListener("click", () => openCase(caseElement, day));
+  }
+
+  calendar.appendChild(caseElement);
+}
+
+// Fonction pour ouvrir une case
+function openCase(caseElement, day) {
+  // Désactiver la case
+  caseElement.classList.add("opened");
+  caseElement.style.pointerEvents = "none";
+
+  // Grinch vole 1 case sur 10
+  if (Math.random() < 0.1) {
+    grinchStolen++;
+    grinchCount.textContent = grinchStolen;
+    grinchMessage.textContent = "Oh non ! Le Grinch a volé la surprise ! 😈";
+    caseElement.textContent = "🎅";
+  } else {
+    // Afficher une surprise
+    const surprise = generateSurprise(day);
+    caseElement.textContent = surprise;
+  }
+}
+
+// Générer une surprise aléatoire
+function generateSurprise(day) {
+  const surprises = [
+    "🎁 Un cadeau surprise !",
+    "❄️ Une belle neige d'hiver !",
+    "🎶 Une mélodie festive !",
+    "🎄 Un sapin magique !",
+    "⭐ Une étoile brillante !",
+    "🍫 Un chocolat virtuel !",
+    "🔥 Une cheminée chaleureuse !"
+  ];
+  return surprises[day % surprises.length];
+}
+
+  </script>
+</body>
+</html>
+
+
