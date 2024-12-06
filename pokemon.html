@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Générateur de QR Codes Pokémon</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f8ff;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      color: #1a73e8;
+      margin: 20px;
+    }
+    .pokemon-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px;
+    }
+    .pokemon {
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .pokemon:hover {
+      transform: scale(1.1);
+    }
+    #qrcode {
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      display: inline-block;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      color: black;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: none;
+      z-index: 1000;
+    }
+    .popup button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .popup button:hover {
+      background-color: #005cbf;
+    }
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 999;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+</head>
+<body>
+  <h1>Générateur de QR Codes Pokémon</h1>
+  <p>Cliquez sur un Pokémon pour générer un QR Code et afficher un message éducatif.</p>
+
+
+  <div class="pokemon-container">
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/129.png" alt="Magicarp" class="pokemon" data-pokemon="magicarp" width="100">
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbizarre" class="pokemon" data-pokemon="bulbizarre" width="100">
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png" alt="Salamèche" class="pokemon" data-pokemon="salamèche" width="100">
+  </div>
+
+
+  <canvas id="qrcode"></canvas>
+
+
+  <div id="overlay"></div>
+  <div id="popup" class="popup">
+    <p id="popup-message"></p>
+    <button onclick="closePopup()">Fermer</button>
+  </div>
+
+  <script>
+  
+    const pokemonMessages = {
+      magicarp: "La pêche intensive menace la survie de nombreuses espèces marines, dont les poissons comme Magicarp. Ensemble, réduisons la surpêche pour préserver nos océans.",
+      bulbizarre: "La déforestation détruit les habitats de milliers d'espèces animales. Comme Bulbizarre, protégeons nos forêts pour maintenir la biodiversité.",
+      salamèche: "Les incendies de forêt, souvent causés par le réchauffement climatique, détruisent des écosystèmes entiers. Salamèche nous rappelle de limiter nos émissions de CO2."
+    };
+
+   
+    function generateQRCode(data) {
+      const qr = new QRious({
+        element: document.getElementById('qrcode'),
+        value: data,
+        size: 200
+      });
+    }
+
+   
+    function showPopup(message) {
+      document.getElementById('popup-message').textContent = message;
+      document.getElementById('popup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+   
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+   
+    document.querySelectorAll('.pokemon').forEach(pokemon => {
+      pokemon.addEventListener('click', function () {
+        const pokemonName = this.dataset.pokemon;
+        const message = pokemonMessages[pokemonName];
+        const url = `https://example.com/${pokemonName}`;
+
+        generateQRCode(url); 
+        showPopup(message);  
+      });
+    });
+  </script>
+</body>
+</html>
