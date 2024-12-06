@@ -6,7 +6,6 @@
   <title>Calendrier de l'Avent Mystérieux</title>
   <link rel="stylesheet" href="123456.css">
   <style>
-    /* Ajoutez le style ici (voir la section CSS ci-dessous) */
   </style>
 </head>
 <body>
@@ -22,7 +21,6 @@
 
   <main>
     <div id="calendar">
-      <!-- Les cases seront générées ici via JavaScript -->
     </div>
   </main>
 
@@ -31,14 +29,11 @@
   </footer>
 
   <script>
-   // Variables globales
 const calendar = document.getElementById("calendar");
 const grinchCount = document.getElementById("grinch-count");
 const grinchMessage = document.getElementById("grinch-message");
 
 let grinchStolen = 0;
-
-// Générer les cases du calendrier
 for (let day = 1; day <= 24; day++) {
   const caseElement = document.createElement("div");
   caseElement.className = "case";
@@ -46,7 +41,6 @@ for (let day = 1; day <= 24; day++) {
 
   const today = new Date().getDate();
 
-  // Permet d'ouvrir uniquement les cases du jour ou des jours passés
   if (day > today) {
     caseElement.style.pointerEvents = "none";
     caseElement.style.opacity = "0.5";
@@ -57,26 +51,23 @@ for (let day = 1; day <= 24; day++) {
   calendar.appendChild(caseElement);
 }
 
-// Fonction pour ouvrir une case
 function openCase(caseElement, day) {
-  // Désactiver la case
+
   caseElement.classList.add("opened");
   caseElement.style.pointerEvents = "none";
 
-  // Grinch vole 1 case sur 10
   if (Math.random() < 0.1) {
     grinchStolen++;
     grinchCount.textContent = grinchStolen;
     grinchMessage.textContent = "Oh non ! Le Grinch a volé la surprise ! 😈";
     caseElement.textContent = "🎅";
   } else {
-    // Afficher une surprise
+
     const surprise = generateSurprise(day);
     caseElement.textContent = surprise;
   }
 }
 
-// Générer une surprise aléatoire
 function generateSurprise(day) {
   const surprises = [
     "🎁 Un cadeau surprise !",
